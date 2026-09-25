@@ -1,19 +1,21 @@
 <div id="dbActions">
+  <div id="dbActions">
     <p>{{msg()}}</p>
     <input type="text" placeholder="Directory path" [(ngModel)]="path" />
     <button (click)="onSubmit()">
         {{ isLoading() ? 'Indexing' : 'Submit' }}
     </button>   
-</div>
-
-@if (errorMsg()) {
-    <p>{{ errorMsg() }}</p>
-}
-
-@if (res(); as r) {
-  <div class="result-box">
-    <h3>Indexing Complete:</h3>
-    <p><strong>Status:</strong> {{ r.status }}</p>
-    <p><strong>Chunks Indexed:</strong> {{ r.chunks_indexed }}</p>
   </div>
-}
+
+  @if (errorMsg()) {
+      <p>{{ errorMsg() }}</p>
+  }
+
+  @if (res(); as r) {
+    <div class="result-box">
+      <h3>Indexing Complete:</h3>
+      <p><strong>Status:</strong> {{ r.status }}</p>
+      <p><strong>Chunks Indexed:</strong> {{ r.chunks_indexed }}</p>
+    </div>
+  }
+</div>

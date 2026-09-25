@@ -1,7 +1,20 @@
-<div id="userAsks">
-    <p>query</p>
+<div id="ask">
+    <div id="userAsks">
+    <p>Query</p>
     <input type="text" placeholder="Ask something!" [(ngModel)]="query" />
     <button (click)="onAsk()">
         {{ isLoading() ? 'Asking' : 'Submit' }}
     </button>   
+    </div>
+
+    @if (errorMsg()) {
+        <p>{{ errorMsg() }}</p>
+    }
+
+    @if (res(); as r) {
+    <div class="result-box">
+        <h3>Found:</h3>
+        <p><strong>Answer:</strong> {{ r.answer }}</p>
+    </div>
+    }
 </div>
