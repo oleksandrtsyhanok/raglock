@@ -1,0 +1,7 @@
+<div id="userAsks">
+    <p>query</p>
+    <input type="text" placeholder="Ask something!" [(ngModel)]="query" />
+    <button (click)="onAsk()">
+        {{ isLoading() ? 'Asking' : 'Submit' }}
+    </button>   
+</div>
