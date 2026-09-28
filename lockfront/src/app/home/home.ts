@@ -5,10 +5,9 @@ import { AskSmth } from '../components/ask-smth/ask-smth';
 
 @Component({
   selector: 'app-home',
-  imports: [DbHandler, AskSmth],
+  imports: [AskSmth],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  msg = signal('DbHandler');
 }

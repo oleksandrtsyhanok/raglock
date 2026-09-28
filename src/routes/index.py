@@ -39,6 +39,6 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
     query_vector = data_handler.create_query_embedding(query)
     context = db_qdrant.search(query_vector)
 
-    response = await generator.generate_answer(query=query, contexts=context["contexts"], sources=context["sources"])
-
-    return {"answer": response}
+    response, sources = await generator.generate_answer(query=query, contexts=context["contexts"], sources=context["sources"])
+    print(sources)
+    return {"answer": response, "sources": sources}

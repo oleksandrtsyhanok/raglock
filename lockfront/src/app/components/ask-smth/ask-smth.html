@@ -11,10 +11,16 @@
         <p>{{ errorMsg() }}</p>
     }
 
-    @if (res(); as r) {
-    <div class="result-box">
-        <h3>Found:</h3>
-        <p><strong>Answer:</strong> {{ r.answer }}</p>
+    <div id="chat">
+        @for (msg of messages(); track msg.id) {
+            <div id="message">
+                <h3>{{ msg.id }}</h3>
+                <p>{{ msg.role }}</p>
+                <p>{{ msg.text }}</p>
+                <p>{{ msg.sources }}</p>
+            </div>
+        } @empty {
+            <p>Askssss</p>
+        }
     </div>
-    }
 </div>

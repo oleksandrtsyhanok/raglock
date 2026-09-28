@@ -9,7 +9,7 @@ class Generator:
             base_url='https://integrate.api.nvidia.com/v1',
             api_key=os.getenv("API_KEY")
         )
-        self.model = 'nvidia/nemotron-3-super-120b-a12b'
+        self.model = 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'
 
     async def generate_answer(self, query: str, contexts: list[str], sources: list[str]) -> str:
         context = '\n'.join(f'- {item}' for item in contexts)
@@ -31,7 +31,7 @@ class Generator:
         )
         response_text = response.choices[0].message.content
         formatted = self.format_response(response_text, sources)
-        return formatted
+        return formatted, sources
 
 
     def format_response(self, response_text, metadatas):

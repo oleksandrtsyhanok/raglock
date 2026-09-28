@@ -2,6 +2,6 @@
     /* background-color: aqua; */
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 100%;
     gap: 1rem;
 }
