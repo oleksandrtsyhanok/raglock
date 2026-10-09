@@ -35,10 +35,13 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
     generator: Generator = request.app.state.generator
     data_handler: DataHandler = request.app.state.data_handler
 
-    query = payload.query
-    query_vector = data_handler.create_query_embedding(query)
-    context = db_qdrant.search(query_vector)
+    try:
+        query = payload.query
+        query_vector = data_handler.create_query_embedding(query)
+        context = db_qdrant.search(query_vector)
 
-    response, sources = await generator.generate_answer(query=query, contexts=context["contexts"], sources=context["sources"])
-    print(sources)
+        response, sources = await generator.generate_answer(query=query, contexts=context["contexts"], sources=[context["sources"]])
+    except Exception as e:
+        response = str(e)
+        sources = []
     return {"answer": response, "sources": sources}

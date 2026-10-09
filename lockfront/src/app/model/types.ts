@@ -13,7 +13,7 @@ export type UserQuery = {
 
 export type QueryAnswer = {
     answer: string;
-    sources: string;
+    sources: [string];
 }
 
 export type ChatMsg = {
@@ -21,5 +21,5 @@ export type ChatMsg = {
     time: string;
     role: 'user' | 'assistant';
     text: string;
-    sources?: string;
+    sources?: [string];
 }

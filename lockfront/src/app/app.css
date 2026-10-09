@@ -1,6 +1,6 @@
 main {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(34, 34, 53);
+    background-color: rgba(51, 51, 51, 0);
     color: aliceblue;
     padding: 1rem;
 }

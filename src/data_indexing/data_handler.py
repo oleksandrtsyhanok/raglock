@@ -13,10 +13,10 @@ class DataHandler:
 
         load_dotenv()
         self.client = OpenAI(
-            base_url='https://integrate.api.nvidia.com/v1',
+            base_url='https://openrouter.ai/api/v1',
             api_key=os.getenv("API_KEY")
         )
-        self.model = 'nvidia/nemotron-3-embed-1b'
+        self.model = 'nvidia/nemotron-3-embed-1b:free'
 
     def chunk_data(self, data):
         chunked_data = []

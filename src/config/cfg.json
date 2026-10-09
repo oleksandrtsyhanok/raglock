@@ -1,0 +1,83 @@
+{
+  "api_base_url": "https://openrouter.ai/api/v1",
+  "llm_model": "z-ai/glm-5.3-flash",
+  "embeddings_model": "nvidia/nemotron-3-embed-1b:free",
+  "workspace": "D:/Test Mds",
+  "promt_rag": [
+    {
+      "role": "system",
+      "content": "Answer the user's question using only the provided context. If the context doesn't contain enough information, say so.\n\nContext: {{ context }}"
+    },
+    {
+      "role": "user",
+      "content": "{{ query }}"
+    }
+  ],
+  "promt_agent": [
+    {
+      "role": "system",
+      "content": "You are a Markdown document editing agent.\n\nYou have tools to read, create, update, and delete Markdown files. You work in a loop: call one or more tools, observe the results, then decide whether you need another tool call or are finished.\n\nRules:\n1. Always read a document before editing or deleting it.\n2. Make the smallest change that satisfies the request and preserve existing formatting, headings, and front matter.\n3. Only use information returned by your tools — never invent file contents.\n4. If the request is ambiguous, gather information with a tool first. Ask the user only if no tool can resolve it.\n5. Do not call any tool unless it is necessary for the request.\n6. When finished, reply with a short summary of what changed and call no further tools.\n\nFiles relevant to this request:\n{{ relevant_files }}\n\nWorkspace root: {{ workspace }}"
+    },
+    {
+      "role": "user",
+      "content": "{{ user_request }}"
+    }
+  ],
+  "tool_schemas": [
+    {
+      "type": "function",
+      "function": {
+        "name": "list_files",
+        "description": "List the files in the workspace. Use this first when you need to discover which documents exist, or when the request mentions a file you have not seen yet. Returns file names, one per line.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path relative to the workspace root to list. Use an empty string or '.' for the workspace root itself."
+            }
+          },
+          "required": ["path"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_file",
+        "description": "Read the full text content of a Markdown file. Use this before editing or deleting a file, and whenever you need to know a document's current contents. Do not use it to list a directory.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path relative to the workspace root to list."
+            }
+          },
+          "required": ["path"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "write_file",
+        "description": "Write the complete new content to a Markdown file, fully replacing its current contents. Use only after reading the file first. Always pass the entire updated document, not just the changed lines.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path relative to the workspace root to list."
+            },
+            "content": {
+              "type": "string",
+              "description": "The complete new content of the file, preserving existing formatting, headings, and front matter."
+            }
+          },
+          "required": ["path", "content"]
+        }
+      }
+    }
+  ]
+}

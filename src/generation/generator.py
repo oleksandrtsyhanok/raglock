@@ -6,10 +6,10 @@ class Generator:
     def __init__(self):
         load_dotenv()
         self.client = AsyncOpenAI(
-            base_url='https://integrate.api.nvidia.com/v1',
+            base_url='https://openrouter.ai/api/v1',
             api_key=os.getenv("API_KEY")
         )
-        self.model = 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'
+        self.model = 'nvidia/nemotron-3-ultra-550b-a55b:free'
 
     async def generate_answer(self, query: str, contexts: list[str], sources: list[str]) -> str:
         context = '\n'.join(f'- {item}' for item in contexts)
@@ -30,8 +30,10 @@ class Generator:
             messages=prompt
         )
         response_text = response.choices[0].message.content
+        
+        print(response_text)
         formatted = self.format_response(response_text, sources)
-        return formatted, sources
+        return response_text, sources
 
 
     def format_response(self, response_text, metadatas):

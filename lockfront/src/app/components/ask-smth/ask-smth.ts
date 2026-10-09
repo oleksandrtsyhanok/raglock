@@ -24,7 +24,7 @@ export class AskSmth {
   onAsk(): void {
     if (!this.query()) return;
     if (this.isLoading()) return;
-
+    
     let currentQuery = this.query();
     this.query.set('');
 

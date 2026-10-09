@@ -1,10 +1,10 @@
 <div id="ask">
     <div id="userAsks">
-    <p>Query</p>
-    <input type="text" placeholder="Ask something!" [(ngModel)]="query" />
-    <button (click)="onAsk()">
-        {{ isLoading() ? 'Asking' : 'Submit' }}
-    </button>   
+        <p>Query</p>
+        <input type="text" placeholder="Ask something!" [(ngModel)]="query" />
+        <button (click)="onAsk()">
+            {{ isLoading() ? 'Asking' : 'Submit' }}
+        </button>   
     </div>
 
     @if (errorMsg()) {
@@ -14,13 +14,17 @@
     <div id="chat">
         @for (msg of messages(); track msg.id) {
             <div id="message">
-                <h3>{{ msg.id }}</h3>
-                <p>{{ msg.role }}</p>
-                <p>{{ msg.text }}</p>
-                <p>{{ msg.sources }}</p>
+                <div id="msgHead">
+                    <h3>{{ msg.time }}</h3>
+                    <p>{{ msg.role }}</p>
+                </div>
+                <div id="msgText" [innerHTML]="msg.text"></div>
+                @if (msg.sources) {
+                    <p> Source: {{ msg.sources }}</p>
+                }
             </div>
         } @empty {
-            <p>Askssss</p>
+            <p>Write your question!</p>
         }
     </div>
 </div>
