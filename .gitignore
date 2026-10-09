@@ -10,4 +10,4 @@ wheels/
 .venv
 
 .env
-src/qdrant_storage
+src/qdrant_storage/
